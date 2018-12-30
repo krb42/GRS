@@ -19,9 +19,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GRS.Dto", "GRS.Dto\GRS.Dto.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GRS.Data.Model", "GRS.Data.Model\GRS.Data.Model.csproj", "{F2C7F720-BC39-4E4E-84DA-8EC9CABE3138}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRS.Test", "GRS.Test\GRS.Test.csproj", "{289B9289-B7DC-4C64-A080-276EA1E7100F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GRS.Test", "GRS.Test\GRS.Test.csproj", "{289B9289-B7DC-4C64-A080-276EA1E7100F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5413538C-EB6D-4C10-9F2B-1D4BE87A6C08}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{69C376DB-ECF5-4C23-AC4C-7657E077F599}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
