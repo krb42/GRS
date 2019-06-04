@@ -48,6 +48,8 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,6 +60,12 @@
   <ItemGroup>
     <Compile Include="DBUPOptions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="frmHTMLReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmHTMLReport.Designer.cs">
+      <DependentUpon>frmHTMLReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="MyGRSScriptValidator.cs" />
     <Compile Include="MyGRSSqlExtensions.cs" />
     <Compile Include="MyGRSSqlTableJournal.cs" />
@@ -66,8 +74,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Content Include="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="frmHTMLReport.resx">
+      <DependentUpon>frmHTMLReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripts\GRS000 Create Database.sql" />
+    <Content Include="Scripts\xx GRS002A Insert Attribute.sql" />
+    <Content Include="Scripts\xx GRS003 CRUD GRS_Entity.sql" />
+    <Content Include="Scripts\xx GRS004 CRUD GRS_Sport.sql" />
+    <Content Include="Scripts\xx GRS005 CRUD GRS_Division.sql" />
+    <Content Include="Scripts\xx GRS006 CRUD GRS_Event.sql" />
+    <Content Include="Scripts\xx GRS007 CRUD GRS_Result.sql" />
+    <Content Include="Scripts\xx GRS008 CRUD GRS_PlaceGetter.sql" />
+    <Content Include="Scripts\xx GRS009 CRUD GRS_Entity_Statistic.sql" />
+    <Content Include="Scripts\xx GRS001 CRUD GRS_Sport_Statictic.sql" />
+    <Content Include="Scripts\xx GRS002 CRUD GRS_Attribute.sql" />
+    <Content Include="Scripts\xx GRS001 CRUD GRS_User.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

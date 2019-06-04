@@ -18,9 +18,12 @@ namespace GRS_DBUP
 
         private const int Success = 0;
 
+        private const int SuccessReport = 2;
+
         // Define a static logger variable so that it references the Logger instance
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
+        [STAThread]
         private static int Main(string[] args)
         {
             // https://dotnetthoughts.net/how-to-use-log4net-with-aspnetcore-for-logging/
@@ -31,10 +34,14 @@ namespace GRS_DBUP
 
             log.Info("Program Main - Main has been invoked");
 
-            return Parser.Default.ParseArguments<DBUPOptions>(args)
+            var result = Parser.Default.ParseArguments<DBUPOptions>(args)
                .MapResult(
                   ProcessOptions,
                   ReturnFailure);
+
+            if (result != SuccessReport)
+                Console.ReadLine();
+            return result;
         }
 
         private static int ProcessOptions(DBUPOptions options)
@@ -59,8 +66,21 @@ namespace GRS_DBUP
 
                 if (options.GenerateReport)
                 {
-                    upgrader.GenerateUpgradeHtmlReport("UpgradeReport.html");
-                    result = Success;
+                    var upgradeFileName = "UpgradeReport.html";
+                    upgrader.GenerateUpgradeHtmlReport(upgradeFileName);
+
+                    var allFiles = Directory.GetFiles(".", upgradeFileName, SearchOption.AllDirectories);
+
+                    if (allFiles.Length > 0)
+                    {
+                        var file = allFiles[0];
+                        var filePath = Path.GetFullPath(file);
+
+                        var frm = new frmHTMLReport(filePath);
+                        frm.ShowDialog();
+                    }
+
+                    result = SuccessReport;
                 }
                 else
                 {
@@ -78,7 +98,6 @@ namespace GRS_DBUP
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine(upgradeResult.Error);
                         Console.ResetColor();
-                        Console.ReadLine();
                         result = Failure;
                     }
                 }

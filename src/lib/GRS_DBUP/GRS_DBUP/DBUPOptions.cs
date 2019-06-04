@@ -22,13 +22,13 @@ namespace GRS_DBUP.Configuration
             {
                 var connectionString = ConfigurationManager.ConnectionStrings[cstrConfigurationBase].ToString();
 
-                connectionString = connectionString.Replace("=DBSource", DataSource);
-                connectionString = connectionString.Replace("=DBCatalog", Catalog);
+                connectionString = connectionString.Replace("=DBSource", $"={DataSource}");
+                connectionString = connectionString.Replace("=DBCatalog", $"={Catalog}");
 
                 if (connectionString.IndexOf("=DBUserName", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
-                    connectionString = connectionString.Replace("=DBUserName", Username);
-                    connectionString = connectionString.Replace("=DBPassword", Password);
+                    connectionString = connectionString.Replace("=DBUsername", $"={Username}");
+                    connectionString = connectionString.Replace("=DBPassword", $"={Password}");
                 }
 
                 return connectionString;
@@ -38,7 +38,7 @@ namespace GRS_DBUP.Configuration
         [Option('d', "datasource", Default = "localhost", HelpText = "Datasource name")]
         public string DataSource { get; set; }
 
-        [Option('r', "GenerateReport", Default = false, HelpText = "Generate Report - no update")]
+        [Option('r', "GenerateReport", Default = true, HelpText = "Generate Report - no update")]
         public bool GenerateReport { get; set; }
 
         [Option('p', "password", Default = "grsuser", HelpText = "User Password")]
