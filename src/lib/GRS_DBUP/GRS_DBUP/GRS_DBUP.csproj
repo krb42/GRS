@@ -83,7 +83,13 @@
     <EmbeddedResource Include="frmHTMLReport.resx">
       <DependentUpon>frmHTMLReport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Scripts\GRS000 Create Database.sql" />
+    <EmbeddedResource Include="Scripts\GRS002 Insert Base Seed Data.sql" />
+    <EmbeddedResource Include="Scripts\GRS000 Create Main Tables.sql" />
+    <EmbeddedResource Include="Scripts\GRS001 Create VersionAutoID Sequence.sql" />
+    <Content Include="Scripts\zzOLD GRS000 Create Database.sql" />
+    <Content Include="Scripts\ready GRS000B Create Sport Tables.sql" />
+    <Content Include="Scripts\ready maybe GRS000C Create Attribute Tables.sql" />
+    <Content Include="Scripts\ready GRS000A Create Entiry Tables.sql" />
     <Content Include="Scripts\xx GRS002A Insert Attribute.sql" />
     <Content Include="Scripts\xx GRS003 CRUD GRS_Entity.sql" />
     <Content Include="Scripts\xx GRS004 CRUD GRS_Sport.sql" />

@@ -8,3 +8,4 @@ obj/
 bin/
 logs/
 *.user
+/src/lib/GRS_DBUP/GRS_DBUP/alt scripts
