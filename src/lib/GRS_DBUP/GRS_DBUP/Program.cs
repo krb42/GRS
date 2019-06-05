@@ -40,7 +40,11 @@ namespace GRS_DBUP
                   ReturnFailure);
 
             if (result != SuccessReport)
+            {
+                Console.Write("$> ");
                 Console.ReadLine();
+            }
+
             return result;
         }
 

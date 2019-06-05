@@ -46,8 +46,8 @@ namespace GRS_DBUP
 
             var builder = new UpgradeEngineBuilder();
             builder.Configure(c => c.ConnectionManager = connectionManager);
-            builder.Configure(c => c.ScriptExecutor = new SqlScriptExecutor(() => c.ConnectionManager, () => c.Log, schema, () => c.VariablesEnabled, c.ScriptPreprocessors, () => c.Journal));
             builder.Configure(c => c.Journal = new MyGRSSqlTableJournal(() => c.ConnectionManager, () => c.Log, schema, "GRSSchemaVersions"));
+            builder.Configure(c => c.ScriptExecutor = new SqlScriptExecutor(() => c.ConnectionManager, () => c.Log, schema, () => c.VariablesEnabled, c.ScriptPreprocessors, () => c.Journal));
             return builder;
         }
     }

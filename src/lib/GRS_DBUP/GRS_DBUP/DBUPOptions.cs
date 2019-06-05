@@ -38,7 +38,7 @@ namespace GRS_DBUP.Configuration
         [Option('d', "datasource", Default = "localhost", HelpText = "Datasource name")]
         public string DataSource { get; set; }
 
-        [Option('r', "GenerateReport", Default = true, HelpText = "Generate Report - no update")]
+        [Option('r', "GenerateReport", Default = false, HelpText = "Generate Report - no update")]
         public bool GenerateReport { get; set; }
 
         [Option('p', "password", Default = "grsuser", HelpText = "User Password")]
