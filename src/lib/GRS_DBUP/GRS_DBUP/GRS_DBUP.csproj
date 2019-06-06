@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E0E5B3BC-0FB4-4975-A1D4-280C340E1EDB}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>GRS_DBUP</RootNamespace>
+    <AssemblyName>GRS_DBUP</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommandLine, Version=2.5.0.0, Culture=neutral, PublicKeyToken=5a870481e358d379, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommandLineParser.2.5.0\lib\net461\CommandLine.dll</HintPath>
+    </Reference>
+    <Reference Include="dbup-core, Version=4.2.0.0, Culture=neutral, PublicKeyToken=4b419c53bdfd4cbf, processorArchitecture=MSIL">
+      <HintPath>..\packages\dbup-core.4.2.0\lib\net45\dbup-core.dll</HintPath>
+    </Reference>
+    <Reference Include="dbup-sqlserver, Version=4.2.0.0, Culture=neutral, PublicKeyToken=4b419c53bdfd4cbf, processorArchitecture=MSIL">
+      <HintPath>..\packages\dbup-sqlserver.4.2.0\lib\net35\dbup-sqlserver.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DBUPOptions.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="frmHTMLReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmHTMLReport.Designer.cs">
+      <DependentUpon>frmHTMLReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyGRSScriptValidator.cs" />
+    <Compile Include="MyGRSSqlExtensions.cs" />
+    <Compile Include="MyGRSSqlTableJournal.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <Content Include="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="frmHTMLReport.resx">
+      <DependentUpon>frmHTMLReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripts\GRS003 Create Access User.sql" />
+    <EmbeddedResource Include="Scripts\GRS000 Create Main Tables.sql" />
+    <EmbeddedResource Include="Scripts\GRS001 Create VersionAutoID Sequence.sql" />
+    <EmbeddedResource Include="Scripts\GRS002 Insert Base Seed Data.sql" />
+    <Content Include="Scripts\zzOLD GRS000 Create Database.sql" />
+    <Content Include="Scripts\ready GRS000B Create Sport Tables.sql" />
+    <Content Include="Scripts\ready maybe GRS000C Create Attribute Tables.sql" />
+    <Content Include="Scripts\ready GRS000A Create Entiry Tables.sql" />
+    <Content Include="Scripts\xx GRS002A Insert Attribute.sql" />
+    <Content Include="Scripts\xx GRS003 CRUD GRS_Entity.sql" />
+    <Content Include="Scripts\xx GRS004 CRUD GRS_Sport.sql" />
+    <Content Include="Scripts\xx GRS005 CRUD GRS_Division.sql" />
+    <Content Include="Scripts\xx GRS006 CRUD GRS_Event.sql" />
+    <Content Include="Scripts\xx GRS007 CRUD GRS_Result.sql" />
+    <Content Include="Scripts\xx GRS008 CRUD GRS_PlaceGetter.sql" />
+    <Content Include="Scripts\xx GRS009 CRUD GRS_Entity_Statistic.sql" />
+    <Content Include="Scripts\xx GRS001 CRUD GRS_Sport_Statictic.sql" />
+    <Content Include="Scripts\xx GRS002 CRUD GRS_Attribute.sql" />
+    <Content Include="Scripts\xx GRS001 CRUD GRS_User.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
