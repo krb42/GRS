@@ -18,6 +18,7 @@
     },
     "GRS.WebServices": {
       "commandName": "Project",
+      "commandLineArgs": "-u \"Dummy User\"",
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
