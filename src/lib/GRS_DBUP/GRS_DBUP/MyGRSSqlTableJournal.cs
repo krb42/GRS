@@ -11,12 +11,12 @@ namespace GRS_DBUP
 {
     internal class MyGRSSqlTableJournal : TableJournal
     {
-        private string GetGRSInsertJournalEntrySql(string scriptName, string scriptVersion, string scriptDescription, string applied)
+        private string GetGRSInsertJournalEntrySql(string scriptName, string scriptVersion, string scriptDescription, string scriptFullName, string applied)
         {
             var insertScript = new StringBuilder();
             insertScript.Append($"insert into {FqSchemaTableName} ");
-            insertScript.Append("([ScriptName], [ScriptVersion], [ScriptDescription], [DateApplied]) ");
-            insertScript.Append($"values ({@scriptName}, {@scriptVersion}, {@scriptDescription}, {@applied})");
+            insertScript.Append("([ScriptName], [ScriptVersion], [ScriptDescription], [ScriptFullName], [DateApplied]) ");
+            insertScript.Append($"values ({scriptName}, {@scriptVersion}, {@scriptDescription}, {scriptFullName}, {@applied})");
             return insertScript.ToString();
         }
 
@@ -52,12 +52,19 @@ namespace GRS_DBUP
             scriptDescriptionParam.Value = scriptDescription;
             command.Parameters.Add(scriptDescriptionParam);
 
+            var scriptFullNameParam = command.CreateParameter();
+            scriptFullNameParam.ParameterName = "scriptFullName";
+            scriptFullNameParam.DbType = DbType.String;
+            scriptFullNameParam.Size = 255;
+            scriptFullNameParam.Value = script.Name;
+            command.Parameters.Add(scriptFullNameParam);
+
             var appliedParam = command.CreateParameter();
             appliedParam.ParameterName = "applied";
             appliedParam.Value = DateTime.Now;
             command.Parameters.Add(appliedParam);
 
-            command.CommandText = GetGRSInsertJournalEntrySql("@scriptName", "@scriptVersion", "@scriptDescription", "@applied");
+            command.CommandText = GetGRSInsertJournalEntrySql("@scriptName", "@scriptVersion", "@scriptDescription", "@scriptFullName", "@applied");
             command.CommandType = CommandType.Text;
             return command;
         }
@@ -70,6 +77,7 @@ namespace GRS_DBUP
             createTableScript.Append("[ScriptName] nvarchar(255) not null,").AppendLine();
             createTableScript.Append("[ScriptVersion] nvarchar(20) not null,").AppendLine();
             createTableScript.Append("[ScriptDescription] nvarchar(2048) not null,").AppendLine();
+            createTableScript.Append("[ScriptFullName] nvarchar(255) not null,").AppendLine();
             createTableScript.Append("[DateApplied] datetime not null").AppendLine();
             createTableScript.Append(")");
 
@@ -80,7 +88,7 @@ namespace GRS_DBUP
 
         protected override string GetJournalEntriesSql()
         {
-            return $"select [ScriptName] from {FqSchemaTableName} order by [ScriptName]";
+            return $"select [ScriptFullName] from {FqSchemaTableName} order by [ScriptFullName]";
         }
 
         /// <summary>
