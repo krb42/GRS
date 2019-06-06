@@ -60,15 +60,15 @@
   <ItemGroup>
     <Compile Include="DBUPOptions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
-    <Compile Include="frmHTMLReport.cs">
+    <Compile Include="Reports\frmHTMLReport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmHTMLReport.Designer.cs">
+    <Compile Include="Reports\frmHTMLReport.Designer.cs">
       <DependentUpon>frmHTMLReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="MyGRSScriptValidator.cs" />
-    <Compile Include="MyGRSSqlExtensions.cs" />
-    <Compile Include="MyGRSSqlTableJournal.cs" />
+    <Compile Include="Extensions\MyGRSScriptValidator.cs" />
+    <Compile Include="Extensions\MyGRSSqlExtensions.cs" />
+    <Compile Include="Extensions\MyGRSSqlTableJournal.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -80,7 +80,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="frmHTMLReport.resx">
+    <EmbeddedResource Include="Reports\frmHTMLReport.resx">
       <DependentUpon>frmHTMLReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Scripts\GRS003 Create Access User.sql" />

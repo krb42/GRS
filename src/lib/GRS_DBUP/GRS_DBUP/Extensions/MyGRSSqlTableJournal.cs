@@ -7,7 +7,7 @@ using System;
 using System.Data;
 using System.Text;
 
-namespace GRS_DBUP
+namespace GRS_DBUP.Extensions
 {
     internal class MyGRSSqlTableJournal : TableJournal
     {

@@ -3,6 +3,7 @@ using DbUp;
 using DbUp.Helpers;
 using GRS_DBUP.Configuration;
 using GRS_DBUP.Extensions;
+using GRS_DBUP.Reports;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -54,6 +55,9 @@ namespace GRS_DBUP
             try
             {
                 log.Info("Program Main - Creating and Starting DBUP");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"{options.ConnectionString}");
+                Console.ResetColor();
 
                 var upgradeEngineBuilder = DeployChanges.To
                                     //.SqlDatabase(options.ConnectionString)

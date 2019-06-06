@@ -1,4 +1,4 @@
-﻿namespace GRS_DBUP
+﻿namespace GRS_DBUP.Reports
 {
     partial class frmHTMLReport
     {

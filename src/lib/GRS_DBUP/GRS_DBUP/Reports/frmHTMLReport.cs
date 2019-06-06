@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Windows.Forms;
 
-namespace GRS_DBUP
+namespace GRS_DBUP.Reports
 {
     public partial class frmHTMLReport : Form
     {

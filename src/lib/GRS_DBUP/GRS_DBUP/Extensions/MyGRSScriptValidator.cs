@@ -2,7 +2,7 @@
 using System;
 using System.Text;
 
-namespace GRS_DBUP
+namespace GRS_DBUP.Extensions
 {
     /// <summary>
     /// Substitutes variables for values in SqlScripts

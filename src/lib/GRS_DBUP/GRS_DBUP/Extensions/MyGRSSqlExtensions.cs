@@ -3,7 +3,7 @@ using DbUp.Engine.Transactions;
 using DbUp.SqlServer;
 using System;
 
-namespace GRS_DBUP
+namespace GRS_DBUP.Extensions
 {
     internal static class MyGRSSqlExtensions
     {
