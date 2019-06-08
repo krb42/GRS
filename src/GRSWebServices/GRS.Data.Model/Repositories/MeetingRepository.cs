@@ -12,6 +12,8 @@ namespace GRS.Data.Model.Repositories
    {
       bool CanDeleteMeeting(int meetingID);
 
+      void DeleteMeeting(int meetingID);
+
       Meeting GetMeetingByID(int meetingID);
 
       IEnumerable<Meeting> GetMeetings();
@@ -44,8 +46,11 @@ namespace GRS.Data.Model.Repositories
          return false;
       }
 
+      public void DeleteMeeting(int meetingID)
+         => Helper.ExecuteNonQuery($"DELETE FROM {TABLE_NAME} WHERE MeetingID = @MeetingID", new SqlParameter("@MeetingID", meetingID));
+
       public Meeting GetMeetingByID(int meetingID)
-         => Helper.GetSingle($"{SELECT_COMMAND} WHERE MeetingID = @MeetingID", ReadData, new SqlParameter("@MeetingID", meetingID));
+               => Helper.GetSingle($"{SELECT_COMMAND} WHERE MeetingID = @MeetingID", ReadData, new SqlParameter("@MeetingID", meetingID));
 
       public IEnumerable<Meeting> GetMeetings() => Helper.GetList(SELECT_COMMAND, ReadData);
 
