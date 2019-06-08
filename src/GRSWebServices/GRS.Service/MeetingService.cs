@@ -10,7 +10,7 @@ namespace GRS.Service
 {
    public interface IMeetingService
    {
-      Task<bool> CanDeleteMeetingAsync(int meetingId);
+      Task<bool> CanDeleteMeeting(int meetingId);
 
       Task<MeetingDto> CreateMeeting(MeetingDto meetingDto);
 
@@ -32,7 +32,7 @@ namespace GRS.Service
          _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
       }
 
-      public async Task<bool> CanDeleteMeetingAsync(int meetingId)
+      public async Task<bool> CanDeleteMeeting(int meetingId)
       {
          return await _mediator.Send(new CanDeleteMeetingQuery(meetingId));
       }

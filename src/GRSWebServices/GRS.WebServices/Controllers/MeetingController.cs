@@ -26,6 +26,32 @@ namespace GRS.WebService.Controllers
       }
 
       /// <summary>
+      /// Check to see if the Meeting can be deleted
+      /// </summary>
+      /// <param name="meetingId">
+      /// The unique identifier of the meeting to be checked
+      /// </param>
+      /// <returns>
+      /// True is the meeting can be deleted
+      /// </returns>
+      [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+      [ProducesResponseType(typeof(ErrorModel), (int)HttpStatusCode.NotFound)]
+      [HttpDelete("check/{meetingId:int}", Name = nameof(CanDeleteMeeting))]
+      public async Task<IActionResult> CanDeleteMeeting([FromRoute] int meetingId)
+      {
+         _logger.LogWarning($"CanDeleteMeeting where meetingId = {meetingId}");
+         var existingItem = await _meetingService.GetMeetingById(meetingId);
+         if (existingItem == null)
+         {
+            return this.ItemNotFound($"No meeting found with id {meetingId}");
+         }
+
+         var result = await _meetingService.CanDeleteMeeting(meetingId);
+
+         return Ok(result);
+      }
+
+      /// <summary>
       /// Add a new meeting
       /// </summary>
       /// <param name="meetingDto">
@@ -44,6 +70,22 @@ namespace GRS.WebService.Controllers
          var createdMeeting = await _meetingService.CreateMeeting(meetingDto);
 
          return CreatedAtRoute(nameof(GetMeetingById), new { meetingId = createdMeeting.MeetingID }, createdMeeting);
+      }
+
+      /// <summary>
+      /// Delete the selected Meeting
+      /// </summary>
+      /// <param name="meetingId">
+      /// The unique identifier of the meeting to be deleted
+      /// </param>
+      [ProducesResponseType(typeof(ErrorModel), (int)HttpStatusCode.NotFound)]
+      [HttpDelete("{meetingId:int}")]
+      public async Task<IActionResult> DeleteMeeting([FromRoute] int meetingId)
+      {
+         _logger.LogWarning($"DeleteMeeting where meetingId = {meetingId}");
+         await _meetingService.DeleteMeeting(meetingId);
+
+         return NoContent();
       }
 
       /// <summary>
