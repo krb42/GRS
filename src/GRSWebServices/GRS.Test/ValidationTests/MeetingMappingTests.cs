@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using GRS.Data.Model;
 using GRS.Dto;
-using GRS.Test.DBContext;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GRS.Test.ValidationTests
@@ -9,15 +8,16 @@ namespace GRS.Test.ValidationTests
    [TestClass]
    public class MeetingMappingTests
    {
-      private IGRSDBContext _dbContext;
+      private TestDBContext _dbContext;
       private IMapper _mapper;
-      private ITestMeetingRepository _repository;
 
       [TestMethod]
       public void CheckAutoMap_Dto_to_Model()
       {
-         var source = new[] { _repository.GetTestMeetingDto(1) };
-         var expect = _repository.GetTestMeeting(1);
+         var expect = _dbContext.Meeting.GetMeetingByID(1);
+         var meetingDto = _dbContext.Mapper.Map<MeetingDto>(expect);
+
+         var source = new[] { meetingDto };
 
          var destination = (Meeting[])_mapper.Map(source, typeof(MeetingDto[]), typeof(Meeting[]));
 
@@ -29,8 +29,10 @@ namespace GRS.Test.ValidationTests
       [TestMethod]
       public void CheckAutoMap_Model_to_Dto()
       {
-         var source = new[] { _repository.GetTestMeeting(1) };
-         var expect = _repository.GetTestMeetingDto(1);
+         var expect = _dbContext.Meeting.GetMeetingByID(1);
+         var meetingDto = _dbContext.Mapper.Map<MeetingDto>(expect);
+
+         var source = new[] { expect };
 
          var destination = (MeetingDto[])_mapper.Map(source, typeof(Meeting[]), typeof(MeetingDto[]));
 
@@ -42,11 +44,10 @@ namespace GRS.Test.ValidationTests
       [TestInitialize]
       public void Setup()
       {
+         _dbContext = new TestDBContext(new TestGRSDBContextOptions());
+
          var config = new MapperConfiguration(cfg => cfg.AddProfiles(typeof(Meeting).Assembly));
          _mapper = config.CreateMapper();
-
-         _dbContext = new TestDBContext();
-         _repository = (ITestMeetingRepository)_dbContext.Meeting;
       }
    }
 }

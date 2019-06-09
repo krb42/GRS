@@ -17,6 +17,11 @@ namespace GRS.Core
       ValidationFailed,
 
       /// <summary>
+      /// API request failed
+      /// </summary>
+      RequestFailed,
+
+      /// <summary>
       /// Item request was not found
       /// </summary>
       ItemNotFound,

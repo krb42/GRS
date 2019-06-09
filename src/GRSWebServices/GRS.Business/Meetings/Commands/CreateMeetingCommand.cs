@@ -3,7 +3,7 @@ using MediatR;
 
 namespace GRS.Business.Meetings.Commands
 {
-   public class CreateMeetingCommand : IRequest<int>
+   public class CreateMeetingCommand : IRequest<MeetingDto>
    {
       public CreateMeetingCommand(MeetingDto meetingDto)
       {

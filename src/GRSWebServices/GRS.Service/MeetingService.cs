@@ -39,8 +39,7 @@ namespace GRS.Service
 
       public async Task<MeetingDto> CreateMeeting(MeetingDto meetingDto)
       {
-         var meetingId = await _mediator.Send(new CreateMeetingCommand(meetingDto));
-         return await GetMeetingById(meetingId);
+         return await _mediator.Send(new CreateMeetingCommand(meetingDto));
       }
 
       public async Task DeleteMeeting(int meetingId)

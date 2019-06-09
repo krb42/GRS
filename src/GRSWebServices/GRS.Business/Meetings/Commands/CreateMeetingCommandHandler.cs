@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GRS.Business.Meetings.Commands
 {
-   public class CreateMeetingCommandHandler : IRequestHandler<CreateMeetingCommand, int>
+   public class CreateMeetingCommandHandler : IRequestHandler<CreateMeetingCommand, MeetingDto>
    {
       private readonly IGRSDBContext _dbContext;
       private readonly IMapper _mapper;
@@ -18,16 +18,16 @@ namespace GRS.Business.Meetings.Commands
          _mapper = mapper;
       }
 
-      public async Task<int> Handle(CreateMeetingCommand request, CancellationToken cancellationToken)
+      public Task<MeetingDto> Handle(CreateMeetingCommand request, CancellationToken cancellationToken)
       {
          var meeting = _mapper.Map<MeetingDto, Meeting>(request.MeetingDto);
 
          meeting.MeetingID = 0;
          meeting.Deleted = false;
 
-         var newId = _dbContext.Meeting.InsertMeeting(meeting);
+         var newMeeting = _dbContext.Meeting.InsertMeeting(meeting);
 
-         return await Task.FromResult(newId);
+         return Task.FromResult(_mapper.Map<MeetingDto>(newMeeting));
       }
    }
 }

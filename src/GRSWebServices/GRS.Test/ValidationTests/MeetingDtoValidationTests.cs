@@ -1,8 +1,7 @@
 ﻿using FluentValidation.Results;
 using FluentValidation.TestHelper;
 using GRS.Business.Meetings.Validators;
-using GRS.Data.Model;
-using GRS.Test.DBContext;
+using GRS.Dto;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GRS.Test.ValidationTests
@@ -10,7 +9,7 @@ namespace GRS.Test.ValidationTests
    [TestClass]
    public class MeetingDtoValidationTests
    {
-      private IGRSDBContext dbContext;
+      private TestDBContext dbContext;
       private MeetingDtoValidator validator;
 
       [TestMethod]
@@ -22,25 +21,25 @@ namespace GRS.Test.ValidationTests
       [TestMethod]
       public void Noerror_when_Name_is_specified()
       {
-         var repository = (ITestMeetingRepository)dbContext.Meeting;
-         var meeting = repository.GetTestMeetingDto(1);
-         validator.ShouldNotHaveValidationErrorFor(x => x.Name, meeting);
+         var meeting = dbContext.Meeting.GetMeetingByID(1);
+         var meetingDto = dbContext.Mapper.Map<MeetingDto>(meeting);
+         validator.ShouldNotHaveValidationErrorFor(x => x.Name, meetingDto);
       }
 
       [TestInitialize]
       public void Setup()
       {
-         dbContext = new TestDBContext();
+         dbContext = new TestDBContext(new TestGRSDBContextOptions());
          validator = new MeetingDtoValidator(dbContext);
       }
 
       [TestMethod]
       public void ValidateInstance()
       {
-         var repository = (ITestMeetingRepository)dbContext.Meeting;
-         var meeting = repository.GetTestMeetingDto(1);
+         var meeting = dbContext.Meeting.GetMeetingByID(1);
+         var meetingDto = dbContext.Mapper.Map<MeetingDto>(meeting);
 
-         ValidationResult result = validator.Validate(meeting);
+         ValidationResult result = validator.Validate(meetingDto);
 
          Assert.AreEqual(true, result.IsValid);
       }

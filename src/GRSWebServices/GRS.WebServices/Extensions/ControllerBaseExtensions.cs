@@ -22,7 +22,7 @@ namespace GRS.WebService.Extensions
          });
       }
 
-      public static IActionResult NullDtoOrFieldMismatchBadRequest(this ControllerBase controller, string fieldName, int? dtoField = null, int routeParam = default(int))
+      public static IActionResult NullDtoOrFieldMismatchBadRequest(this ControllerBase controller, string fieldName, int? dtoField, int routeParam = default(int))
       {
          return NullDtoOrFieldMismatchBadRequest(controller, NullDtoOrFieldMismatchError, fieldName, dtoField?.ToString(), routeParam.ToString());
       }
@@ -32,7 +32,7 @@ namespace GRS.WebService.Extensions
          return NullDtoOrFieldMismatchBadRequest(controller, NullDtoOrFieldMismatchError, fieldName, null, null);
       }
 
-      public static IActionResult NullDtoOrFieldMismatchBadRequest(this ControllerBase controller, string fieldName, string dtoField = null, string routeParam = null)
+      public static IActionResult NullDtoOrFieldMismatchBadRequest(this ControllerBase controller, string fieldName, string dtoField, string routeParam = null)
       {
          return NullDtoOrFieldMismatchBadRequest(controller, NullDtoOrFieldMismatchError, fieldName, dtoField, routeParam);
       }
@@ -67,6 +67,42 @@ namespace GRS.WebService.Extensions
          }
 
          return controller.ValidationFailed(message, new ErrorDetail[] { });
+      }
+
+      public static IActionResult RequestFailed(this ControllerBase controller, string message)
+      {
+         return controller.RequestFailed(message, new ErrorDetail[] { });
+      }
+
+      public static IActionResult RequestFailed(this ControllerBase controller, string message, ErrorDetail errorDetail)
+      {
+         return controller.RequestFailed(message, new ErrorDetail[] { errorDetail });
+      }
+
+      public static IActionResult RequestFailed(this ControllerBase controller, params ErrorDetail[] errorDetails)
+      {
+         return controller.RequestFailed(null, errorDetails);
+      }
+
+      /// <summary>
+      /// Creates a BadRequestObjectResult that produces a StatusCodes.Status400BadRequest response.
+      /// Wraps error message within an ErrorModel
+      /// </summary>
+      /// <param name="controller">
+      /// </param>
+      /// <param name="message">
+      /// </param>
+      /// <param name="errorDetails">
+      /// </param>
+      /// <returns>
+      /// </returns>
+      public static IActionResult RequestFailed(this ControllerBase controller, string message, params ErrorDetail[] errorDetails)
+      {
+         return controller.BadRequest(
+            new ErrorModel
+            {
+               Error = new ErrorInfo(ErrorCode.RequestFailed, message ?? DefaultErrorMessages.ValidationFailedErrorMessage, errorDetails),
+            });
       }
 
       public static IActionResult ValidationFailed(this ControllerBase controller, string message)

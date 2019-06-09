@@ -42,8 +42,10 @@ namespace GRS.WebService.Controllers
          if (meetingDto == null) return this.NullDtoOrFieldMismatchBadRequest(nameof(meetingDto));
 
          var createdMeeting = await _meetingService.CreateMeeting(meetingDto);
+         if (createdMeeting == null)
+            return this.RequestFailed($"Failed to create new meeting");
 
-         return CreatedAtRoute(nameof(GetMeetingById), new { meetingId = createdMeeting.MeetingID }, createdMeeting);
+         return Ok(createdMeeting);
       }
 
       /// <summary>

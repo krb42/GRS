@@ -35,5 +35,25 @@ namespace GRS.Data.Model
 
       [DbColumnOptions(isImmutable: true)]
       public long VersionAutoID { get; set; }
+
+      public Meeting Clone()
+      {
+         return new Meeting()
+         {
+            MeetingID = MeetingID,
+            Name = Name,
+            Description = Description,
+            ReportTitle = ReportTitle,
+            StartDate = StartDate,
+            EndDate = EndDate,
+
+            Deleted = Deleted,
+            TSCreateDate = TSCreateDate,
+            TSCreateUser = TSCreateUser,
+            TSModifyDate = TSModifyDate,
+            TSModifyUser = TSModifyUser,
+            VersionAutoID = VersionAutoID,
+         };
+      }
    }
 }

@@ -16,7 +16,7 @@ namespace GRS.Data.Model.Repositories
 
       IEnumerable<Meeting> GetMeetings();
 
-      int InsertMeeting(Meeting meeting);
+      Meeting InsertMeeting(Meeting meeting);
 
       void UpdateMeeting(Meeting meeting);
    }
@@ -49,9 +49,19 @@ namespace GRS.Data.Model.Repositories
 
       public IEnumerable<Meeting> GetMeetings() => Helper.GetList(SELECT_COMMAND, ReadData);
 
-      public int InsertMeeting(Meeting meeting)
+      public Meeting InsertMeeting(Meeting meeting)
       {
-         return 5;
+         if (meeting.MeetingID != 0) throw new InvalidArgumentException();
+
+         //var command = Helper.BuildInsertCommand<Meeting>(meeting);
+         //var dbMeeting = GetMeetingByID(meeting.MeetingID);
+
+         //var newMeeting = meeting
+
+         var resultId = 5;
+         var newMeeting = GetMeetingByID(resultId);
+
+         return newMeeting;
       }
 
       public void UpdateMeeting(Meeting meeting)
