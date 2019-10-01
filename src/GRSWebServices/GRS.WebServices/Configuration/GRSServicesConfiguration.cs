@@ -71,6 +71,7 @@ namespace GRS.WebServices.Configuration
          AddGRSDbContext(services);
 
          // setup application services
+         services.AddTransient<ITokenService, TokenService>();
          //services.AddTransient<IEncryptionService, EncryptionService>();
          services.AddTransient<IMeetingService, MeetingService>();
       }

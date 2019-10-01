@@ -126,7 +126,7 @@ namespace GRS.WebService.Controllers
       }
 
       /// <summary>
-      /// Updates an existng meeting
+      /// Updates an existing meeting
       /// </summary>
       [ProducesResponseType((int)HttpStatusCode.NoContent)]
       [ProducesResponseType(typeof(ErrorModel), (int)HttpStatusCode.BadRequest)]
