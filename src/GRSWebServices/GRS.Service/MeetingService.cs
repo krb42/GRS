@@ -18,7 +18,7 @@ namespace GRS.Service
 
       Task<MeetingDto> GetMeetingById(int meetingId);
 
-      Task<List<MeetingDto>> GetMeetings(QueryParameters parameters);
+      Task<IEnumerable<MeetingDto>> GetMeetings(QueryParameters parameters);
 
       Task UpdateMeeting(MeetingDto meetingDto);
    }
@@ -57,7 +57,7 @@ namespace GRS.Service
          return await _mediator.Send(request);
       }
 
-      public async Task<List<MeetingDto>> GetMeetings(QueryParameters parameters)
+      public async Task<IEnumerable<MeetingDto>> GetMeetings(QueryParameters parameters)
       {
          return await _mediator.Send(new GetMeetingsQuery(parameters));
       }

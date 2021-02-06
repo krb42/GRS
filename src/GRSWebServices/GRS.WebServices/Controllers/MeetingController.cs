@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace GRS.WebService.Controllers
 {
-   [Route("api/v1/[controller]")]
+   [Route("api/[controller]")]
    public class MeetingController : Controller
    {
       private readonly ILogger<MeetingController> _logger;
@@ -22,7 +22,7 @@ namespace GRS.WebService.Controllers
       public MeetingController(IMeetingService meetingService, ILogger<MeetingController> logger)
       {
          _meetingService = meetingService ?? throw new ArgumentNullException(nameof(meetingService));
-         _logger = logger;
+         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
       }
 
       /// <summary>
@@ -63,7 +63,7 @@ namespace GRS.WebService.Controllers
       [ProducesResponseType(typeof(MeetingDto), (int)HttpStatusCode.OK)]
       [ProducesResponseType(typeof(ErrorModel), (int)HttpStatusCode.BadRequest)]
       [HttpPost]
-      public async Task<IActionResult> CreateMeeting([FromBody] [CustomizeValidator(RuleSet = RuleSets.ApplyToCreate)] MeetingDto meetingDto)
+      public async Task<IActionResult> CreateMeeting([FromBody][CustomizeValidator(RuleSet = RuleSets.ApplyToCreate)] MeetingDto meetingDto)
       {
          if (meetingDto == null) return this.NullDtoOrFieldMismatchBadRequest(nameof(meetingDto));
 
@@ -132,7 +132,7 @@ namespace GRS.WebService.Controllers
       [ProducesResponseType(typeof(ErrorModel), (int)HttpStatusCode.BadRequest)]
       [ProducesResponseType(typeof(ErrorModel), (int)HttpStatusCode.NotFound)]
       [HttpPut("{meetingId}")]
-      public async Task<IActionResult> UpdateMeeting([FromRoute] int meetingId, [FromBody]MeetingDto meetingDto)
+      public async Task<IActionResult> UpdateMeeting([FromRoute] int meetingId, [FromBody] MeetingDto meetingDto)
       {
          if (meetingDto == null || meetingDto.MeetingID != meetingId)
          {

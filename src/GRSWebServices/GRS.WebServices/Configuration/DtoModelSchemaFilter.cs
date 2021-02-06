@@ -1,11 +1,12 @@
-﻿using Swashbuckle.AspNetCore.Swagger;
+﻿using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace GRS.WebServices.Configuration
 {
    public class DtoModelSchemaFilter : ISchemaFilter
    {
-      public void Apply(Schema schema, SchemaFilterContext context)
+      public void Apply(OpenApiSchema schema, SchemaFilterContext context)
       {
          // if (schema.Type != "object" || schema.Properties == null)
          if (schema.Properties == null)
@@ -13,7 +14,7 @@ namespace GRS.WebServices.Configuration
 
          var x = 1;
 
-         if (context.SystemType.Name == "ErrorDetail")
+         if (context.Type.Name == "ErrorDetail")
          {
             schema.Required = null;
          }

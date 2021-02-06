@@ -1,4 +1,4 @@
-﻿using Swashbuckle.AspNetCore.Swagger;
+﻿using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Linq;
@@ -7,12 +7,12 @@ namespace GRS.WebServices.Configuration
 {
    public class DtoValueTypesNullabilitySchemaFilter : ISchemaFilter
    {
-      public void Apply(Schema schema, SchemaFilterContext context)
+      public void Apply(OpenApiSchema schema, SchemaFilterContext context)
       {
          if (schema.Type != "object" || schema.Properties == null)
             return;
 
-         var propNames = context.SystemType.GetProperties()
+         var propNames = context.Type.GetProperties()
             .Where(p =>
 
                         // is this a value type?
@@ -25,7 +25,7 @@ namespace GRS.WebServices.Configuration
                         p.CanRead && p.CanWrite)
             .Select(p => p.Name);
 
-         schema.Required = schema.Properties.Keys.Intersect(propNames, StringComparer.OrdinalIgnoreCase).ToList();
+         ////schema.Required = schema.Properties.Keys.Intersect(propNames, StringComparer.OrdinalIgnoreCase).ToList();
 
          if (!schema.Required.Any())
             schema.Required = null;

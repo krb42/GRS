@@ -59,12 +59,13 @@ namespace GRS.WebServices
          Logger.LogDebug("Configure Swagger Documents for GRS");
          app.UseSwaggerDocsForGRS();
 
-         app.UseMvc(routes =>
-         {
-            routes.MapRoute(
-                   name: "default",
-                   template: "{controller=Home}/{action=Index}/{id?}");
-         });
+         //app.UseMvc(routes =>
+         //{
+         //   routes.MapRoute(
+         //          name: "default",
+         //          template: "{controller=Home}/{action=Index}/{id?}");
+         //});
+         app.UseMvc();
 
          app.Run(async (context) =>
          {
@@ -80,8 +81,8 @@ namespace GRS.WebServices
 
          services.Configure<CookiePolicyOptions>(options =>
             {
-               // This lambda determines whether user consent for non-essential cookies is needed for
-               // a given request.
+               // This lambda determines whether user consent for non-essential cookies is needed
+               // for a given request.
                options.CheckConsentNeeded = context => true;
                options.MinimumSameSitePolicy = SameSiteMode.None;
             });
@@ -94,7 +95,7 @@ namespace GRS.WebServices
            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
            .AddFluentValidation(config =>
            {
-              config.RegisterValidatorsFromAssemblyContaining(typeof(AssemblyMarker));
+              config.RegisterValidatorsFromAssemblyContaining(typeof(MediatRAssemblyMarker));
            });
 
          // Setup GRS Swagger documentation
@@ -106,10 +107,10 @@ namespace GRS.WebServices
          services.AddAutoMapper();
 
          // Add all profiles in the GRS.Business assembly
-         Mapper.Initialize(cfg => cfg.AddProfiles(typeof(MeetingMappingProfile).Assembly));
+         Mapper.Initialize(cfg => cfg.AddProfiles(typeof(AutoMapperAssemblyMarker).Assembly));
 
          // Setup MediatR
-         services.AddMediatR(typeof(AssemblyMarker));
+         services.AddMediatR(typeof(MediatRAssemblyMarker));
          services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 
          var grsConfiguration = new GRSServicesConfiguration(Configuration, HostingEnvironment, Logger);

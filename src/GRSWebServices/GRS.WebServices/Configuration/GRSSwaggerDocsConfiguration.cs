@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Collections.Generic;
 using System.IO;
@@ -41,7 +42,7 @@ namespace GRS.WebServices.Configuration
          services.AddSwaggerGen(options =>
          {
             options.SwaggerDoc(Version,
-               new Info
+               new OpenApiInfo
                {
                   Title = $"{Title} {Version}",
                   Version = Version,

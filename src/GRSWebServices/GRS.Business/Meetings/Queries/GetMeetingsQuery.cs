@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace GRS.Business.Meetings.Queries
 {
-   public class GetMeetingsQuery : IRequest<List<MeetingDto>>
+   public class GetMeetingsQuery : IRequest<IEnumerable<MeetingDto>>
    {
       public GetMeetingsQuery(QueryParameters parameters)
       {
