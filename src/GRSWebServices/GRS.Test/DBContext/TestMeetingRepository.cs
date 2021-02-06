@@ -35,8 +35,13 @@ namespace GRS.Test.DBContext
          return false;
       }
 
+      public void DeleteMeeting(int meetingID)
+      {
+         throw new NotImplementedException();
+      }
+
       public Meeting GetMeetingByID(int meetingID)
-         => _baseData.Find(m => m.MeetingID == meetingID);
+               => _baseData.Find(m => m.MeetingID == meetingID);
 
       public IEnumerable<Meeting> GetMeetings() => _baseData.ToArray();
 

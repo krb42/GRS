@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GRS.Business.Meetings.Queries
 {
-   public class GetMeetingsQueryHandler : IRequestHandler<GetMeetingsQuery, List<MeetingDto>>
+   public class GetMeetingsQueryHandler : IRequestHandler<GetMeetingsQuery, IEnumerable<MeetingDto>>
    {
       private readonly IGRSDBContext _dbContext;
 
@@ -20,11 +20,11 @@ namespace GRS.Business.Meetings.Queries
          _mapper = mapper;
       }
 
-      public Task<List<MeetingDto>> Handle(GetMeetingsQuery request, CancellationToken cancellationToken)
+      public Task<IEnumerable<MeetingDto>> Handle(GetMeetingsQuery request, CancellationToken cancellationToken)
       {
          var meetings = _dbContext.Meeting.GetMeetings(); ///.CreateFilteredDtos<Meeting, MeetingDto>(request.Parameters);
 
-         return Task.FromResult(_mapper.Map<List<MeetingDto>>(meetings));
+         return Task.FromResult(_mapper.Map<IEnumerable<MeetingDto>>(meetings));
       }
    }
 }
